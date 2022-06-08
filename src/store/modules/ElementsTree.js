@@ -18,42 +18,31 @@ class State {
     .filter(i => i.parentId == null)
 }
 const ElementsTreeModule = {
-
   namespaces: true,
-
   state: new State(),
-
   mutations: {
     SET_ELEMENT_NAME(state, data) {
       let index = state.elements.findIndex(item => item.id === data.id);
       state.elements[index].name = data.title
     },
     DELETE_ELEMENT(state, rootId) {
-      let rootIndex = state.elements.findIndex(item => item.id === rootId);
-      let childrenIndex = []
-      let childrenIds = []
-      state.elements.forEach((element, index) => {
+      let children = []
+      state.elements.forEach(element => {
         if (element.parentId === rootId) {
-          childrenIndex.push(index)
-          childrenIds.push(element.id)
+          children.push(element.id)
         }
       });
-      let countElements = 0
-      while (countElements < childrenIndex.length) {
-        countElements = childrenIndex.length
-        state.elements.forEach((element, index) => {
-          if (childrenIds.indexOf(element.parentId) > -1 && childrenIds.indexOf(element.id) < 0) {
-            childrenIndex.push(index)
-            childrenIds.push(element.id)
+      let oldLength = 0
+      while (oldLength < children.length) {
+        oldLength = children.length
+        state.elements.forEach(element => {
+          if (children.indexOf(element.parentId) > -1 && children.indexOf(element.id) === -1) {
+            children.push(element.id)
           }
         });
       }
-      if (childrenIndex.length > 0) {
-        childrenIndex.forEach(element => {
-          state.elements.splice(element, 1)
-        })
-      }
-      state.elements.splice(rootIndex, 1)
+      children.push(rootId)
+      state.elements = state.elements.filter(element => children.indexOf(element.id) === -1)
       state.treeElements = state.elements.reduce((a, c) => {
         c.children = state.elements.filter(i => i.parentId == c.id)
         a.push(c)

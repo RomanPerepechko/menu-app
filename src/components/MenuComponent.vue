@@ -25,4 +25,7 @@ export default {
 }
 </script>
 <style scoped>
+.menu-block{
+  max-width: 400px;
+}
 </style>
