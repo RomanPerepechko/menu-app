@@ -1,4 +1,3 @@
-/* eslint-disable */
 class State {
   elements = [
     { id: 1, type: 'folder', name: '1', parentId: null },
@@ -14,8 +13,8 @@ class State {
     c.children = this.elements.filter(i => i.parentId == c.id)
     a.push(c)
     return a
-  }, [])
-    .filter(i => i.parentId == null)
+  }, []).filter(i => i.parentId == null)
+  // формируем дерево элементов из списка элементов
 }
 const ElementsTreeModule = {
   namespaces: true,
@@ -32,6 +31,7 @@ const ElementsTreeModule = {
           children.push(element.id)
         }
       });
+      // определяем первый уровень вложенности
       let oldLength = 0
       while (oldLength < children.length) {
         oldLength = children.length
@@ -41,8 +41,13 @@ const ElementsTreeModule = {
           }
         });
       }
+      // проходим 1 раз для каждого последующего уровня вложенности
+      // формируя массив из id элементов, которые необходимо удалить
+
       children.push(rootId)
       state.elements = state.elements.filter(element => children.indexOf(element.id) === -1)
+      // удаляем элементы с id из массива children
+
       state.treeElements = state.elements.reduce((a, c) => {
         c.children = state.elements.filter(i => i.parentId == c.id)
         a.push(c)

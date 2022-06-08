@@ -1,23 +1,24 @@
 <template>
     <div style="margin-bottom:16px" class="menu-element">
-        <div class="element-block">
-            <div class="menu-element__icon-placeholder">
+        <div class="element-info">
+            <div class="element-info__icon-placeholder">
                 <img :src="require(`@/assets/icons/${menuElement.type}.png`)" alt=""
-                    class="menu-element__icon-placeholder__icon">
+                    class="element-info__icon-placeholder__icon">
             </div>
-            <div v-if="!isEdit" class="menu-element__name">{{ menuElement.type }} {{ menuElement.name }}</div>
-            <div v-if="isEdit" class="input-block">
-                <input class="input-block__input" v-model="title"> <button class="input-block__submit"
-                    @click="editName()">ok</button>
+            <div v-if="!isEdit" class="element-info__name">{{ menuElement.type }} {{ menuElement.name }}</div>
+            <div v-if="isEdit" class="element-info__input-block">
+                <input class="element-info__input-block__input" v-model="title"> <button class="element-info__input-block__submit"
+                    @click="editNameElement()">ok</button>
             </div>
         </div>
         <div class="buttons-block">
-            <img @click="isEdit = true" src="@/assets/icons/pencil.png" alt="" class="button-edit">
-            <img @click="deleteElement()" src="@/assets/icons/cart.png" alt="" class="button-delete">
+            <img @click="isEdit = true" src="@/assets/icons/pencil.png" alt="" class="buttons-block__button-edit">
+            <img @click="deleteElement()" src="@/assets/icons/cart.png" alt="" class="buttons-block__button-delete">
         </div>
     </div>
-    <div v-if="true" class="menu-element" style="flex-direction:column;">
+    <div v-if="true" class="menu-element node" style="">
         <node-tree v-for="child in menuElement.children" :key="child.id" :menuElement="child"></node-tree>
+        <!-- рекурсивно вызываем компонент для всех последующих уровней вложенности -->
     </div>
 </template>
 <script>
@@ -36,7 +37,7 @@ export default {
         }
     },
     methods: {
-        editName() {
+        editNameElement() {
             this.store.dispatch("setElementName", { title: this.title, id: this.menuElement.id });
             this.isEdit = false;
         },
@@ -47,7 +48,10 @@ export default {
 }
 </script>
 <style scoped>
-.element-block {
+.node{
+    flex-direction:column;
+}
+.element-info {
     display: flex;
     align-items: center;
 }
@@ -56,13 +60,13 @@ export default {
     display: flex;
 }
 
-.button-edit {
+.buttons-block__button-edit {
     margin-right: 4px;
     width: 15px;
     height: 15px;
 }
 
-.button-delete {
+.buttons-block__button-delete {
     width: 15px;
     height: 15px;
 }
@@ -75,11 +79,11 @@ export default {
     justify-content: space-between;
 }
 
-.menu-element__icon-placeholder {
+.element-info__icon-placeholder {
     margin-right: 16px;
 }
 
-.menu-element__icon-placeholder__icon {
+.element-info__icon-placeholder__icon {
     width: 20px;
 }
 </style>
