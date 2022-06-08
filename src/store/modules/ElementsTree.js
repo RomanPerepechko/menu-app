@@ -1,5 +1,5 @@
 class State {
-  elements = [
+  elements = [ 
     { id: 1, type: 'folder', name: '1', parentId: null },
     { id: 2, type: 'folder', name: '1-1', parentId: 1 },
     { id: 3, type: 'file', name: '1-1-1', parentId: 2 },

@@ -21,7 +21,7 @@
         <!-- рекурсивно вызываем компонент для всех последующих уровней вложенности -->
     </div>
 </template>
-<script>
+<script> 
 import { useStore } from "vuex";
 export default {
     name: 'node-tree',
