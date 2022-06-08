@@ -7,8 +7,8 @@
             </div>
             <div v-if="!isEdit" class="element-info__name">{{ menuElement.type }} {{ menuElement.name }}</div>
             <div v-if="isEdit" class="element-info__input-block">
-                <input class="element-info__input-block__input" v-model="title"> <button class="element-info__input-block__submit"
-                    @click="editNameElement()">ok</button>
+                <input class="element-info__input-block__input" maxlength="15" v-model="title"> <button
+                    class="element-info__input-block__submit" @click="editNameElement()">ok</button>
             </div>
         </div>
         <div class="buttons-block">
@@ -21,7 +21,7 @@
         <!-- рекурсивно вызываем компонент для всех последующих уровней вложенности -->
     </div>
 </template>
-<script> 
+<script>
 import { useStore } from "vuex";
 export default {
     name: 'node-tree',
@@ -38,7 +38,10 @@ export default {
     },
     methods: {
         editNameElement() {
-            this.store.dispatch("setElementName", { title: this.title, id: this.menuElement.id });
+            if (this.title.trim() !== '') {
+                this.store.dispatch("setElementName", { title: this.title.trim(), id: this.menuElement.id });
+            }
+            this.title = this.menuElement.name,
             this.isEdit = false;
         },
         deleteElement() {
@@ -48,9 +51,10 @@ export default {
 }
 </script>
 <style scoped>
-.node{
-    flex-direction:column;
+.node {
+    flex-direction: column;
 }
+
 .element-info {
     display: flex;
     align-items: center;
