@@ -5,7 +5,6 @@
     </div>
   </div>
 </template>
-
 <script>
 import MenuElement from './MenuElement.vue';
 import { computed } from "vue";

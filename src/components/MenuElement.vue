@@ -16,7 +16,7 @@
             <img @click="deleteElement()" src="@/assets/icons/cart.png" alt="" class="buttons-block__button-delete">
         </div>
     </div>
-    <div v-if="true" class="menu-element node" style="">
+    <div class="menu-element node" style="">
         <node-tree v-for="child in menuElement.children" :key="child.id" :menuElement="child"></node-tree>
         <!-- рекурсивно вызываем компонент для всех последующих уровней вложенности -->
     </div>
