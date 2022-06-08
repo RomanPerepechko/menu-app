@@ -2,12 +2,12 @@
 class State {
   elements = [
     { id: 1, type: 'folder', name: '1', parentId: null },
-    { id: 2, type: 'folder', name: '1', parentId: 1 },
-    { id: 3, type: 'file', name: '1', parentId: 2 },
-    { id: 4, type: 'file', name: '1', parentId: 1 },
+    { id: 2, type: 'folder', name: '1-1', parentId: 1 },
+    { id: 3, type: 'file', name: '1-1-1', parentId: 2 },
+    { id: 4, type: 'file', name: '1-2', parentId: 1 },
     { id: 5, type: 'folder', name: '2', parentId: null },
-    { id: 6, type: 'folder', name: '1', parentId: 5 },
-    { id: 7, type: 'file', name: '1', parentId: 5 },
+    { id: 6, type: 'folder', name: '2-1', parentId: 5 },
+    { id: 7, type: 'file', name: '2-2', parentId: 5 },
     { id: 8, type: 'file', name: '2', parentId: null },
   ];
   treeElements = this.elements.reduce((a, c) => {
